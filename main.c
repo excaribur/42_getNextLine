@@ -1,30 +1,49 @@
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdio.h>
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 16:40:22 by jphonyia          #+#    #+#             */
+/*   Updated: 2023/05/01 17:16:01 by jphonyia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main(int argc, char *argv[])
+# include <stdio.h>
+#include "get_next_line.h"
+
+int ft(char **ptr)
 {
-	int fd = open("foo.txt", O_CREAT);
+	char *s = "BKK42";
+	*ptr = s;
+	return (0);
+}
 
-	printf("fd = %d\n", fd);
 
-	char buff[1];
-	int iread = 1;
-	while (iread)
+int	main()
+{
+	int fd = open("tester.txt", O_RDONLY);
+	if (fd == -1)
 	{
-		 iread = read(fd, buff, 6);
-		 write (1, buff, 6);
-		 printf("read: %i\n", iread);
-	}
-
-
-	if (fd ==-1)
-	{
-		// print which type of error have in a code
 		printf("Error Number");
 	}
-	return 0;
+
+	int s = 1;
+	while (s)
+	{
+		char *str = get_next_line(fd);
+		s = printf("%s",str);
+		if (str)
+			free(str);
+	}
+
+
+	// char *str = "HELLO";
+	// printf("%s\n", str);
+	// ft(&str);
+	// printf("%s\n", str);
+
+
+	return (0);
 }

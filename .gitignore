@@ -1,3 +1,6 @@
 .vscode
 /main.dSYM
-*.aout
+*a.out
+/libft
+/.DS_Store
+/a.out.dSYM
