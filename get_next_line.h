@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 16:17:59 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/01 17:07:36 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:24:19 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		is_newline(char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*get_one_line(char **str, char *line);
 char	*make_line(char **str, char *line, size_t *start);
+void	if_free(void *ptr);
 
 #endif

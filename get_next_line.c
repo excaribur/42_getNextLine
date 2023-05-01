@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:44:14 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/01 17:10:05 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:32:23 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 char	*get_next_line(int fd)
 {
 	static char	*str;
-	char	*line;
+	char		*line;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	line = read_file_line(fd, &str, line);
 	return (line);
@@ -48,15 +48,16 @@ char	*read_file_line(int fd, char **str, char *line)
 	while (byte > 0)
 	{
 		byte = read(fd, buff, BUFFER_SIZE);
-		if (byte < 0)
+		if (byte <= 0)
 			break ;
 		buff[byte] = 0;
 		*str = append_to_str(str, buff);
+		if (!str)
+			break ;
 		if (is_newline(buff))
 			break ;
 	}
-	if (buff)
-		free(buff);
+	if_free(buff);
 	return (get_one_line(str, line));
 }
 
@@ -67,10 +68,15 @@ char	*append_to_str(char **str, char *buff)
 	size_t	i;
 	size_t	j;
 
+	if (!buff[0])
+		return (NULL);
 	len_total = ft_strlen(*str, 0) + ft_strlen(buff, 0);
 	temp = ft_calloc(len_total + 1, sizeof(char));
 	if (!temp)
+	{
+		if_free(buff);
 		return (NULL);
+	}
 	i = 0;
 	while (*str && str[0][i])
 	{
@@ -80,5 +86,12 @@ char	*append_to_str(char **str, char *buff)
 	j = 0;
 	while (buff[j])
 		temp[i++] = buff[j++];
+	if_free(*str);
 	return (temp);
+}
+
+void	if_free(void *ptr)
+{
+	if (ptr)
+		free(ptr);
 }

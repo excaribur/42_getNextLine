@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:51:13 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/01 17:18:44 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:26:38 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*get_one_line(char **str, char *line)
 	char	*new_buff;
 
 	start = 0;
+	if (!(*str))
+		return (NULL);
 	len_line = ft_strlen(*str, '\n');
 	line = ft_calloc(len_line + 2, sizeof(char));
 	new_buff = ft_calloc(ft_strlen(*str, 0) + len_line + 1, sizeof(char));
@@ -77,8 +79,7 @@ char	*get_one_line(char **str, char *line)
 	j = 0;
 	while (str[0][start])
 		new_buff[j++] = str[0][start++];
-	if (*str)
-		free(*str);
+	if_free(*str);
 	*str = new_buff;
 	return (line);
 }
