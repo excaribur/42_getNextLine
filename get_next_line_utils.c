@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:51:13 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/01 18:26:38 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:21:56 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ size_t	ft_strlen(const char *s, char c)
 {
 	size_t	i;
 
+//printf("======ft_strlen======\n");
 	i = 0;
 	if (!s)
 		return (i);
@@ -72,15 +73,21 @@ char	*get_one_line(char **str, char *line)
 		return (NULL);
 	len_line = ft_strlen(*str, '\n');
 	line = ft_calloc(len_line + 2, sizeof(char));
-	new_buff = ft_calloc(ft_strlen(*str, 0) + len_line + 1, sizeof(char));
-	if (!line || !new_buff)
+	if (!line)
 		return (NULL);
+	new_buff = ft_calloc(ft_strlen(*str, 0) + len_line + 1, sizeof(char));
+	if (!new_buff)
+	{
+		if_free(line);
+		return (NULL);
+	}
 	line = make_line(str, line, &start);
 	j = 0;
-	while (str[0][start])
+	while (str[0][start] && start != 0)
 		new_buff[j++] = str[0][start++];
 	if_free(*str);
 	*str = new_buff;
+	//printf("=====\n%s\n=====", new_buff);
 	return (line);
 }
 
@@ -89,12 +96,15 @@ char	*make_line(char **str, char *line, size_t *start)
 	size_t	i;
 
 	i = 0;
-	while (str[0][i] != '\n')
+	if (!str && !str[0] && !str[0][i])
+		return (NULL);
+	while (str[0][i] != '\0' && str[0][i] != '\n')
 	{
 		line[i] = str[0][i];
 		i++;
 	}
-	line[i++] = '\n';
+	if (str[0][i] != '\0' && str[0][i] == '\n')
+		line[i++] = '\n';
 	*start = i;
 	return (line);
 }
