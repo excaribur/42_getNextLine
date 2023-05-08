@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:44:14 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/07 13:56:53 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:49:21 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char	*read_file_line(int fd, char *str)
 	{
 		byte = read(fd, buff, BUFFER_SIZE);
 		if (byte <= 0)
-			break ;
+		{
+			free(buff);
+			return (NULL);
+		}
 		buff[byte] = 0;
 		str = append_to_str(str, buff);
 		if (!str)
@@ -63,6 +66,7 @@ char	*read_file_line(int fd, char *str)
 			break ;
 	}
 	if_free(buff);
+	//printf("======return (str)======\n");
 	return (str);
 }
 

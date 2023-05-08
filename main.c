@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 16:40:22 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/07 14:10:06 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:50:01 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ int	main()
 		printf("Cannot open file\n");
 	}
 
-	// char *str = get_next_line(fd);
-	// printf("%s",str);
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
+	char *str = get_next_line(fd);
+	printf("%s",str);
+	printf("%s",get_next_line(fd));
+	printf("%s",get_next_line(fd));
 
 	// printf("%s--\n", str);
-	while (1)
-	{
-		//printf("%i--:while (s)\n", fd);
-		char *str = get_next_line(fd);
-		if (!str)
-			break ;
-		printf("%s",str);
-	}
+	// while (1)
+	// {
+	// 	//printf("%i--:while (s)\n", fd);
+	// 	char *str = get_next_line(fd);
+	// 	if (!str)
+	// 		break ;
+	// 	printf("%s",str);
+	// }
 
 
 	//char *str = "HELLO";

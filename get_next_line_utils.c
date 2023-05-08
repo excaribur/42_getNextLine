@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:51:13 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/07 14:21:56 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:49:32 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char	*get_one_line(char **str, char *line)
 	size_t	start;
 	size_t	j;
 	char	*new_buff;
-
+	//printf("=====get_one_line=====\n");
+	//printf("A=====%s===%i==B\n", *str,sizeof(*str));
 	start = 0;
 	if (!(*str))
 		return (NULL);
