@@ -6,11 +6,22 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:51:13 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/09 21:28:20 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:12:06 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/**
+ *  @overview: allocate memmory and set each block to '\0'
+ *
+ *	@params:
+ *
+ *
+ *
+ * 	@return:
+ *
+*/
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -32,9 +43,21 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-size_t	ft_strlen(const char *s, char c)
+/**
+ *  @overview: to find the length of string by counting until specific
+ * 				character or nul-terminate
+ *
+ *	@params:
+ *
+ *
+ *
+ * 	@return:
+ *
+*/
+
+int	ft_strlen(const char *s, char c)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -44,10 +67,21 @@ size_t	ft_strlen(const char *s, char c)
 	return (i);
 }
 
+/**
+ *  @overview: To check the string includes '\n' newline or not
+ *
+ *	@params:
+ *
+ *
+ *
+ * 	@return:
+ *
+*/
+
 int	is_newline(char *str)
 {
 	char	newline;
-	size_t	i;
+	int		i;
 
 	newline = '\n';
 	i = 0;
@@ -60,12 +94,24 @@ int	is_newline(char *str)
 	return (0);
 }
 
+/**
+ *  @overview: to append string from buffer that just read from a file
+ *
+ *	@params:
+ *
+ *
+ *
+ * 	@return:
+ *
+*/
+
 char	*append_to_str(char *str, char *buff)
 {
-	size_t	len_total;
+	int		len_total;
+	int		i;
+	int		j;
 	char	*temp;
-	size_t	i;
-	size_t	j;
+
 
 	if (!buff)
 		return (NULL);
@@ -85,7 +131,3 @@ char	*append_to_str(char *str, char *buff)
 	free(str);
 	return (temp);
 }
-
-
-
-

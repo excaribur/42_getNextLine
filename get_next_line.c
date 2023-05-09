@@ -6,17 +6,26 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:44:14 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/09 21:28:40 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:11:27 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
+#include "get_next_line.h"
 
 /**
- * Step:	1) Loop read
- *			2) Read one byte
- *			3) Append to static str
- *			4) Found \n return str
+ *  @overview: This function reads the contents of a file descriptor
+ * 				and returns a single string corresponding to one line
+ * 				of the file per function call.
+ *
+ *	@params: fd is file descriptor that identifies an open file in
+ *				a running process. It serves as a "handle"
+ *				or reference to a file.
+ *				0 = reserved for standard input (stdin)
+ *				1 = reserved for standard output (stdout)
+ *				2 = reserved for standard error (stderr)
+ *
+ * 	@return:  The string returned includes a newline character
+ * 				(Except: No newline provides)
  *
 */
 char	*get_next_line(int fd)
@@ -32,14 +41,18 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = get_one_line(str);
 	str = delete_one_line(str);
-
 	return (line);
 }
 
 
 /**
- * To do: Read file per Kilobyte(2^10 = 1024 bytes) is defualt value
- * Error:
+ *  @todo: read content to buffer and adding it to static String
+ *
+ *	@params:
+ *
+ *
+ * 	@return:
+ *
 */
 char	*read_file_line(int fd, char *str)
 {
@@ -69,11 +82,20 @@ char	*read_file_line(int fd, char *str)
 	return (str);
 }
 
+/**
+ *  @overview: pull content in a one line from static String
+ *
+ *	@params:
+ *
+ * 	@return:
+ *
+*/
+
 char	*get_one_line(char *str)
 {
 	char	*line;
-	int	len_line;
-	int	i;
+	int		len_line;
+	int		i;
 
 	i = 0;
 	if (!str[i])
@@ -91,6 +113,17 @@ char	*get_one_line(char *str)
 		line[i] = '\n';
 	return (line);
 }
+
+/**
+ *  @overview:
+ *
+ *	@params:
+ *
+ *
+ *
+ * 	@return:
+ *
+*/
 
 char	*delete_one_line(char *str)
 {
