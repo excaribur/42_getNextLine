@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 16:40:22 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/08 21:50:01 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:16:29 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int ft(char **ptr)
 int	main()
 {
 	int fd = open("tester.txt", O_RDONLY);
+	//int fd = open("41_no_nl", O_RDONLY);
 	if (fd == -1)
 	{
 		printf("Cannot open file\n");
@@ -32,7 +33,7 @@ int	main()
 	char *str = get_next_line(fd);
 	printf("%s",str);
 	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
+	//printf("%s",get_next_line(fd));
 
 	// printf("%s--\n", str);
 	// while (1)

@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:44:14 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/08 21:49:21 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:28:40 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ char	*get_next_line(int fd)
 {
 	static char	*str;
 	char		*line;
-	//printf("======get_next_line======\n");
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	str = read_file_line(fd, str);
-	line = get_one_line(&str, line);
-	//printf("=====\n%s\n=====\n", line);
-	//printf("=====\n%s\n=====\n", str);
+	if (!str)
+		return (NULL);
+	line = get_one_line(str);
+	str = delete_one_line(str);
+
 	return (line);
 }
 
@@ -45,7 +46,8 @@ char	*read_file_line(int fd, char *str)
 	int		byte;
 	char	*buff;
 
-	//printf("======read_file_line======\n");
+	if (!str)
+		str = ft_calloc(1, 1);
 	byte = BYTE;
 	buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buff)
@@ -53,53 +55,65 @@ char	*read_file_line(int fd, char *str)
 	while (byte > 0)
 	{
 		byte = read(fd, buff, BUFFER_SIZE);
-		if (byte <= 0)
+		if (byte < 0)
 		{
 			free(buff);
 			return (NULL);
 		}
 		buff[byte] = 0;
 		str = append_to_str(str, buff);
-		if (!str)
-			break ;
-		if (is_newline(buff))
+		if (!str || is_newline(buff))
 			break ;
 	}
-	if_free(buff);
-	//printf("======return (str)======\n");
+	free(buff);
 	return (str);
 }
 
-char	*append_to_str(char *str, char *buff)
+char	*get_one_line(char *str)
 {
-	size_t	len_total;
-	char	*temp;
-	size_t	i;
-	size_t	j;
+	char	*line;
+	int	len_line;
+	int	i;
 
-	//printf("======append_to_str======\n");
-	if (!buff)
-		return (NULL);
-	len_total = ft_strlen(str, 0) + ft_strlen(buff, 0);
-	temp = ft_calloc(len_total + 1, sizeof(char));
-	if (!temp)
-		return (NULL);
 	i = 0;
-	while (str && str[i])
+	if (!str[i])
+		return (NULL);
+	len_line = ft_strlen(str, '\n');
+	line = ft_calloc(len_line + 2, sizeof(char));
+	if (!line)
+		return (NULL);
+	while (str[i] && str[i] != '\n')
 	{
-		temp[i] = str[i];
+		line[i] = str[i];
 		i++;
 	}
-	j = 0;
-	while (buff && buff[j])
-		temp[i++] = buff[j++];
-	if_free(str);
-	//printf("======%s======\n",temp);
-	return (temp);
+	if (str[i] && str[i] == '\n' )
+		line[i] = '\n';
+	return (line);
 }
 
-void	if_free(void *ptr)
+char	*delete_one_line(char *str)
 {
-	if (ptr)
-		free(ptr);
+	int		i;
+	int		len_oneline;
+	char	*new_str;
+
+	i = 0;
+	len_oneline = ft_strlen(str, '\n');
+	if (!str[len_oneline])
+	{
+		free(str);
+		return (NULL);
+	}
+	new_str = ft_calloc(ft_strlen(str, 0) - len_oneline + 1, sizeof(char));
+	if (!new_str)
+		return (NULL);
+	len_oneline++;
+	while (str[len_oneline + i])
+	{
+		new_str[i] = str[len_oneline + i];
+		i++;
+	}
+	free(str);
+	return (new_str);
 }

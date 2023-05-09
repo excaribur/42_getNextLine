@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:51:13 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/08 21:49:32 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:28:20 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ size_t	ft_strlen(const char *s, char c)
 {
 	size_t	i;
 
-//printf("======ft_strlen======\n");
 	i = 0;
 	if (!s)
 		return (i);
-	while (s[i] != c)
+	while (s[i] && s[i] != c)
 		i++;
 	return (i);
 }
@@ -61,54 +60,32 @@ int	is_newline(char *str)
 	return (0);
 }
 
-char	*get_one_line(char **str, char *line)
+char	*append_to_str(char *str, char *buff)
 {
-	size_t	len_line;
-	size_t	start;
-	size_t	j;
-	char	*new_buff;
-	//printf("=====get_one_line=====\n");
-	//printf("A=====%s===%i==B\n", *str,sizeof(*str));
-	start = 0;
-	if (!(*str))
-		return (NULL);
-	len_line = ft_strlen(*str, '\n');
-	line = ft_calloc(len_line + 2, sizeof(char));
-	if (!line)
-		return (NULL);
-	new_buff = ft_calloc(ft_strlen(*str, 0) + len_line + 1, sizeof(char));
-	if (!new_buff)
-	{
-		if_free(line);
-		return (NULL);
-	}
-	line = make_line(str, line, &start);
-	j = 0;
-	while (str[0][start] && start != 0)
-		new_buff[j++] = str[0][start++];
-	if_free(*str);
-	*str = new_buff;
-	//printf("=====\n%s\n=====", new_buff);
-	return (line);
-}
-
-char	*make_line(char **str, char *line, size_t *start)
-{
+	size_t	len_total;
+	char	*temp;
 	size_t	i;
+	size_t	j;
 
-	i = 0;
-	if (!str && !str[0] && !str[0][i])
+	if (!buff)
 		return (NULL);
-	while (str[0][i] != '\0' && str[0][i] != '\n')
+	len_total = ft_strlen(str, 0) + ft_strlen(buff, 0);
+	temp = ft_calloc(len_total + 1, sizeof(char));
+	if (!temp)
+		return (NULL);
+	i = 0;
+	while (str && str[i])
 	{
-		line[i] = str[0][i];
+		temp[i] = str[i];
 		i++;
 	}
-	if (str[0][i] != '\0' && str[0][i] == '\n')
-		line[i++] = '\n';
-	*start = i;
-	return (line);
+	j = 0;
+	while (buff && buff[j])
+		temp[i++] = buff[j++];
+	free(str);
+	return (temp);
 }
+
 
 
 
