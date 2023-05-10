@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:44:14 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/09 22:11:27 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:52:37 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
  *
  * 	@return:  The string returned includes a newline character
  * 				(Except: No newline provides)
+ * 			NULL, when str gets NULL from read_file_line,
+ * 					delete_one_line functions
+ * 			NULL, when invalid file fd, BUFFER SIZE <= 0 (NO read)
  *
 */
 char	*get_next_line(int fd)
@@ -44,14 +47,17 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-
 /**
- *  @todo: read content to buffer and adding it to static String
+ *  @todo: Read content from the file descriptor into a buffer string,
+ * 			then append buffer strings to a static string.
  *
- *	@params:
+ *	@params: fd is file descriptor
+ *	@params: str is a String
  *
  *
- * 	@return:
+ * 	@return: String that contains content.
+ * 			NULL, when it cannot allocate memory.
+ * 			NULL, "byte" read less than 0, which means End of file
  *
 */
 char	*read_file_line(int fd, char *str)
@@ -83,14 +89,16 @@ char	*read_file_line(int fd, char *str)
 }
 
 /**
- *  @overview: pull content in a one line from static String
+ *  @overview: Pull content just in one line from a static string to
+ * 				allocated memory.
  *
- *	@params:
+ *	@params: str is string (static string)
  *
- * 	@return:
+ * 	@return: NULL, when string is '\0'
+ * 			NULL, when it cannot allocate memmory.
+ *
  *
 */
-
 char	*get_one_line(char *str)
 {
 	char	*line;
@@ -115,16 +123,17 @@ char	*get_one_line(char *str)
 }
 
 /**
- *  @overview:
+ *  @overview: Handle the static string that will keep only
+ * 			the remaining content.
  *
- *	@params:
+ *	@params: str is string
  *
- *
- *
- * 	@return:
+ * 	@return: New string with allocated memory that removes the content line
+ * 				that is pulled in the get_one_line function.
+ * 			NULL, when after skipping the content line, nothing remains.
+ * 			NULL, when it cannot allocate memory.
  *
 */
-
 char	*delete_one_line(char *str)
 {
 	int		i;
