@@ -1,0 +1,5 @@
+Advies from P'Pol and P'Plam
+
+# static structure
+# structure including with, fd and string
+# make sure your idea to do that not create more than 10 functions
