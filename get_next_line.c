@@ -6,7 +6,7 @@
 /*   By: jphonyia <phonyiam.jirayut@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 15:44:14 by jphonyia          #+#    #+#             */
-/*   Updated: 2023/05/10 21:52:37 by jphonyia         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:06:02 by jphonyia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 /**
  *  @overview: This function reads the contents of a file descriptor
- * 				and returns a single string corresponding to one line
- * 				of the file per function call.
+ * 				one line at a time per function call.
  *
  *	@params: fd is file descriptor that identifies an open file in
  *				a running process. It serves as a "handle"
@@ -96,7 +95,6 @@ char	*read_file_line(int fd, char *str)
  *
  * 	@return: NULL, when string is '\0'
  * 			NULL, when it cannot allocate memmory.
- *
  *
 */
 char	*get_one_line(char *str)
